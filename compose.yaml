@@ -1,0 +1,69 @@
+﻿services:
+  dapr-placement:
+    image: "daprio/dapr"
+    command: ["./placement"]
+    ports:
+      - "50005:50005"
+
+  service-a:
+    build:
+      context: .
+      dockerfile: ServiceA/Dockerfile
+    ports:
+      - "7500:8080"
+    networks:
+      - dapr-net
+
+  service-a-dapr:
+    image: "daprio/daprd:1.15.5"
+    command: [
+      "/daprd",
+      "--app-id", "service-a",
+      "--app-port", "7000",
+      "--dapr-http-port", "3500",
+      "--components-path", "/components",
+      "--log-level", "debug"
+    ]
+    volumes:
+      - ./components:/components
+    depends_on:
+      - service-a
+    network_mode: "service:service-a"
+
+  service-b:
+    build:
+      context: ./ServiceB
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - dapr-net
+
+  service-b-dapr:
+    image: "daprio/daprd:1.15.5"
+    command: [
+      "/daprd",
+      "--app-id", "service-b",
+      "--app-port", "8000",
+      "--dapr-http-port", "3500",
+      "--components-path", "/components",
+      "--log-level", "debug"
+    ]
+    volumes:
+      - ./components:/components
+    depends_on:
+      - service-b
+    network_mode: "service:service-b"
+    
+  service-c:
+    build:
+      context: ./ServiceC
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    networks:
+      - dapr-net
+
+networks:
+  dapr-net:
+    driver: bridge
