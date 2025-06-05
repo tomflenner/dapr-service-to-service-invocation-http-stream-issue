@@ -7,7 +7,7 @@ This repository showcases a potential **regression in Dapr's service-to-service 
 The proof-of-concept (POC) involves **three services**:
 
 - **Service A**: .NET service that consumes a stream via HTTP/1.1 (`Transfer-Encoding: chunked`).
-- **Service B**: Python service that relays an incoming stream (via `text/event-stream`) to its consumer.
+- **Service B**: Python service that relays an incoming stream (via `text/event-stream`) to its consumer (via `text/plain`).
 - **Service C**: Python "fake producer" that emits streaming data using HTTP/1.1 with chunked encoding.
 
 ### 🔁 Streaming Pipeline
@@ -15,7 +15,7 @@ The proof-of-concept (POC) involves **three services**:
 Service C (fake producer)
 └──[chunked text/event-stream]──▶
 Service B (relay)
-└──[chunked transfer]──▶
+└──[chunked transfer text/plain]──▶
 Service A (consumer)
 ```
 
