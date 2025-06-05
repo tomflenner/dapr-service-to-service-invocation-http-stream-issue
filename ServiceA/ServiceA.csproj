@@ -9,7 +9,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Protobuf Include="..\protos\proxy_streamer.proto" GrpcServices="Client" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <PackageReference Include="Dapr.Client" Version="1.16.0-rc03" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.3"/>
+        <PackageReference Include="Google.Protobuf" Version="3.31.1"/>
+        <PackageReference Include="Google.Api.CommonProtos" Version="2.17.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.72.0" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>

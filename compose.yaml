@@ -21,6 +21,7 @@
       "--app-id", "service-a",
       "--app-port", "7000",
       "--dapr-http-port", "3500",
+      "--dapr-grpc-port", "50001",
       "--components-path", "/components",
       "--log-level", "debug"
     ]
@@ -35,7 +36,7 @@
       context: ./ServiceB
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "50051:50051"
     networks:
       - dapr-net
 
@@ -44,8 +45,10 @@
     command: [
       "/daprd",
       "--app-id", "service-b",
-      "--app-port", "8000",
+      "--app-port", "50051",
+      "--app-protocol", "grpc",
       "--dapr-http-port", "3500",
+      "--dapr-grpc-port", "50001",
       "--components-path", "/components",
       "--log-level", "debug"
     ]

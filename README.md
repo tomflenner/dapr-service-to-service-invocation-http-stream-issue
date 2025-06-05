@@ -37,6 +37,11 @@ This suggests that Dapr's invocation API might be buffering or mishandling chunk
 
 ### Build & Run
 
+For arm architecture, use before building the images:
+```bash
+docker buildx create --use --name multiarch
+```
+
 From the root of the repository:
 ```bash
 docker compose build

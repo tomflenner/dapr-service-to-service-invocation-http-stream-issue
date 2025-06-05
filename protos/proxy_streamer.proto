@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package proxy_streamer;
+
+option csharp_namespace = "ProxyStreamer.Grpc";
+
+service ProxyStreamer {
+  // Server-streaming RPC
+  rpc GetStream (StreamRequest) returns (stream StreamResponse);
+}
+
+// The request message, currently empty as the FastAPI endpoint takes no specific input
+// other than initiating the stream.
+message StreamRequest {
+}
+
+// The response message containing a piece of data from the stream.
+message StreamResponse {
+  string data = 1;
+}
