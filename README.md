@@ -49,7 +49,7 @@ Test the streaming pipeline directly using:
 curl -v --no-buffer http://localhost:7500/start-non-dapr-stream
 ```
 
-[non-dapr-stream.mp4](images/non-dapr-stream.mp4)
+https://github.com/user-attachments/assets/2ffd6175-652a-4127-8cdd-b147cebc2e16
 
 You should observe data arriving chunk-by-chunk.
 
@@ -62,7 +62,7 @@ Test the same pipeline via Dapr service invocation:
 curl -v --no-buffer http://localhost:7500/start-dapr-stream
 ```
 
-[dapr-stream.mp4](images/dapr-stream.mp4)
+https://github.com/user-attachments/assets/9b64ece8-e739-468c-a13e-30f04b64cf89
 
 You will notice that:
 - No chunks are received progressively.
