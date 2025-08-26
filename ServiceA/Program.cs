@@ -17,11 +17,17 @@ app.MapGet("/start-non-dapr-stream", async (HttpContext context, ILogger<Program
     await ProxyStreamAsync(context, logger, "http://service-b:8000/proxy-stream");
 });
 
+app.MapGet("/start-dapr-stream-external", async (HttpContext context, ILogger<Program> logger) =>
+{
+    await ProxyStreamAsync(context, logger, "http://localhost:3500/v1.0/invoke/http://service-b:8000/method/proxy-stream");
+});
+
 await app.RunAsync();
 
 static async Task ProxyStreamAsync(HttpContext context, ILogger logger, string url)
 {
     using var client = new HttpClient();
+    client.DefaultRequestHeaders.Add("Accept", "text/event-stream; charset=utf-8");
 
     var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
 
