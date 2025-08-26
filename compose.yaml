@@ -1,6 +1,6 @@
 ﻿services:
   dapr-placement:
-    image: "daprio/dapr"
+    image: "daprio/dapr:${DAPR_PLACEMENT_VERSION}"
     command: ["./placement"]
     ports:
       - "50005:50005"
@@ -15,11 +15,11 @@
       - dapr-net
 
   service-a-dapr:
-    image: "daprio/daprd:1.15.5"
+    image: "daprio/daprd:${DAPR_RUNTIME_VERSION}"
     command: [
       "/daprd",
       "--app-id", "service-a",
-      "--app-port", "7000",
+      "--app-port", "8080",
       "--dapr-http-port", "3500",
       "--components-path", "/components",
       "--log-level", "debug"
@@ -40,7 +40,7 @@
       - dapr-net
 
   service-b-dapr:
-    image: "daprio/daprd:1.15.5"
+    image: "daprio/daprd:${DAPR_RUNTIME_VERSION}"
     command: [
       "/daprd",
       "--app-id", "service-b",
