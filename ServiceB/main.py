@@ -17,9 +17,10 @@ async def proxy_stream():
                 logger.info(f"SSE response headers: {headers_str}")
 
                 async for line in sse.aiter_lines():
-                    logger.info(f"Received line: {line}")
-                    if line.startswith("data: "):
-                        yield line[6:] + "\n"
-                        await asyncio.sleep(0)
+                    if line is None:
+                        break
+                    logger.info(f"Proxying line: {line}")
+                    yield line + "\n"
+                    await asyncio.sleep(0)
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
