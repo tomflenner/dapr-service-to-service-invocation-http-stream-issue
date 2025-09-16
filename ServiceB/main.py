@@ -16,11 +16,12 @@ async def proxy_stream():
                 headers_str = ", ".join(f"{k}={v}" for k, v in sse.headers.items())
                 logger.info(f"SSE response headers: {headers_str}")
 
-                async for line in sse.aiter_lines():
-                    if line is None:
+                async for chunk in sse.aiter_bytes():
+                    if not chunk:
                         break
-                    logger.info(f"Proxying line: {line}")
-                    yield line + "\n"
+                    logger.info(f"Proxying chunk: {chunk!r}")
+                    yield chunk
                     await asyncio.sleep(0)
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
+
