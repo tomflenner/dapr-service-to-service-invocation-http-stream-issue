@@ -22,4 +22,4 @@ async def proxy_stream():
                         yield line[6:] + "\n"
                         await asyncio.sleep(0)
 
-    return StreamingResponse(event_stream(), media_type="text/plain", headers={"Transfer-Encoding": "chunked"})
+    return StreamingResponse(event_stream(), media_type="text/event-stream")

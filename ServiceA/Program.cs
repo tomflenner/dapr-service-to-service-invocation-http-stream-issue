@@ -27,7 +27,7 @@ static async Task ProxyStreamAsync(HttpContext context, ILogger logger, string u
 
     LogHeaders(logger, response);
 
-    context.Response.ContentType = "text/plain; charset=utf-8";
+    context.Response.ContentType = "text/event-stream";
     context.Response.Headers.CacheControl = "no-cache";
 
     await using var stream = await response.Content.ReadAsStreamAsync();
