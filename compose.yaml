@@ -1,6 +1,6 @@
 ﻿services:
   dapr-placement:
-    image: "daprio/dapr"
+    image: "daprio/dapr:1.16.0"
     command: ["./placement"]
     ports:
       - "50005:50005"
@@ -15,7 +15,7 @@
       - dapr-net
 
   service-a-dapr:
-    image: "daprio/daprd:1.15.5"
+    image: "daprio/daprd:1.16.0"
     command: [
       "/daprd",
       "--app-id", "service-a",
@@ -40,7 +40,7 @@
       - dapr-net
 
   service-b-dapr:
-    image: "daprio/daprd:1.15.5"
+    image: "daprio/daprd:1.16.0"
     command: [
       "/daprd",
       "--app-id", "service-b",
